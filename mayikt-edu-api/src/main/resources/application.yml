@@ -1,0 +1,14 @@
+server:
+  port: 9098
+
+spring:
+  application:
+    name: kyle-main
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kyleedudb?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+logging:
+  level:
+    com.mayikt.edu.mapper: debug
