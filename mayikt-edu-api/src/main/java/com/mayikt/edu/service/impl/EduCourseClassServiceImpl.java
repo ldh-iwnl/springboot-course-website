@@ -2,6 +2,7 @@ package com.mayikt.edu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mayikt.edu.entity.EduCourseClass;
+import com.mayikt.edu.dto.resp.EduCourseClassRespDTO;
 import com.mayikt.edu.mapper.EduCourseClassMapper;
 import com.mayikt.edu.service.IEduCourseClassService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

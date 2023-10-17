@@ -9,6 +9,21 @@ spring:
     url: jdbc:mysql://localhost:3306/kyleedudb?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
+  redis:
+    host: 192.168.150.111
+    port: 6379
+    password: 961025
+    database: 2
+    # 连接超时时间（毫秒）
+    timeout: 30000ms
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: -1
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 500
+
 logging:
   level:
     com.mayikt.edu.mapper: debug
+
