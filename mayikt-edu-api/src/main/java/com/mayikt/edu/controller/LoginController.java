@@ -5,9 +5,12 @@ import com.mayikt.edu.base.BaseApiController;
 import com.mayikt.edu.base.BaseResponse;
 import com.mayikt.edu.dto.req.EduUserReqDTO;
 import com.mayikt.edu.entity.EduUser;
+import com.mayikt.edu.entity.UserLoginLog;
 import com.mayikt.edu.service.EduUserService;
+import com.mayikt.edu.service.IUserLoginLogService;
 import com.mayikt.edu.utils.MD5Utils;
 import com.mayikt.edu.utils.RedisUtils;
+import com.mayikt.edu.utils.RquestUtils;
 import com.mayikt.edu.utils.TokenUtils;
 import io.swagger.annotations.ApiOperation;
 import jdk.nashorn.internal.parser.Token;
@@ -25,6 +28,9 @@ import java.util.HashMap;
 public class LoginController extends BaseApiController {
     @Autowired
     private EduUserService eduUserService;
+
+    @Autowired
+    private IUserLoginLogService userLoginLogService;
 
     /**
      *  user login method
@@ -61,10 +67,17 @@ public class LoginController extends BaseApiController {
         }
         // generate token
         String userToken = TokenUtils.getToken();
-        RedisUtils.setString(userToken, byUserNameEduUser.getUserId());
+        Integer userId = byUserNameEduUser.getUserId();
+        RedisUtils.setString(userToken,userId);
         HashMap<String, String> result = new HashMap<>();
         result.put("userToken", userToken);
         log.info("token:{}", userToken);
+
+        //record user login log
+        UserLoginLog userLoginLog = new UserLoginLog(userId, RquestUtils.getIpAddr(), userToken, RquestUtils.getEquipment());
+        log.info("start to record user login log {}", userLoginLog);
+        userLoginLogService.addUserLoginLog(userLoginLog);
+        log.info("end to record user login log {}", userLoginLog);
         return setResultSuccessData(result);
     }
 }

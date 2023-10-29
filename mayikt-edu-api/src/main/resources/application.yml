@@ -27,3 +27,10 @@ logging:
   level:
     com.mayikt.edu.mapper: debug
 
+mayikt:
+  userName: mayikt
+  thread:
+    corePoolSize: 2 # 一直正在运行线程数 2  IO相关 cpu核数*2 cpu相
+    maxPoolSize: 8
+    queueCapacity: 1000
+    keepAlive: 60
